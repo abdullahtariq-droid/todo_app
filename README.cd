@@ -1,13 +1,5 @@
 # To-Do List App (Pure Python)
 
-A simple CLI-based To-Do list application built **from scratch** with:
-- No database
-- No frameworks
-- Modular folder structure
-
 ## How to Run
 
-1. Open terminal
-2. Navigate to project folder:
-   ```bash
    cd todo_app
