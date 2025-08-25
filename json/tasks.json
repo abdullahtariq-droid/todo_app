@@ -1,0 +1,14 @@
+{
+    "u1001": [
+        {
+            "task": "Learn Python",
+            "done": false
+        }
+    ],
+    "u1002": [
+        {
+            "task": "Go shopping",
+            "done": false
+        }
+    ]
+}

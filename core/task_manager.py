@@ -5,14 +5,15 @@ from core import storage
 
 
 class TaskManager:
-    def __init__(self, username):
-        self.username = username
-        self.tasks = storage.load_tasks(username)
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.tasks = storage.load_tasks(user_id)  # always Task objects
 
     def add_task(self, title):
+        # task = {"task": title, "done": False}
         task = Task(title)
         self.tasks.append(task)
-        storage.save_task(self.tasks, self.username)
+        storage.save_tasks(self.tasks, self.user_id)
 
     def list_tasks(self):
         if not self.tasks:
@@ -35,13 +36,13 @@ class TaskManager:
     def complete_task(self, index):
         if 0 <= index < len(self.tasks):
             self.tasks[index].mark_complete()
-            storage.save_task(self.tasks, self.username)
+            storage.save_tasks(self.tasks, self.user_id)
         else:
             print("Invalid task number")
 
     def delete_task(self, index):
         if 0 <= index < len(self.tasks):
             del self.tasks[index]
-            storage.save_task(self.tasks, self.username)
+            storage.save_tasks(self.tasks, self.user_id)
         else:
             print("Invalid task number")

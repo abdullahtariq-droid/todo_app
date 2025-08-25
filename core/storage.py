@@ -1,33 +1,38 @@
 # core/storage.py
 
+import json
 import os
+from typing import List
 from models.task import Task
 
-FILE_NAME = "task.txt"
+TASKS_FILE = "tasks.json"
 
 
-def get_user_file(username):
-    # Every user gets their own file
-    return f"tasks_{username}.txt"
+def load_all_tasks() -> dict:
+    """Load all users' tasks from the JSON file."""
+    if os.path.exists(TASKS_FILE):
+        with open(TASKS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
 
 
-def save_task(tasks, username):
-    filename = get_user_file(username)
-    with open(filename, 'w') as file:
-        for task in tasks:
-            status = "1" if task.completed else "0"
-            file.write(f"{status}|{task.title}\n")
+def save_all_tasks(data: dict) -> None:
+    """Save all users' tasks to the JSON file."""
+    with open(TASKS_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
 
 
-def load_tasks(username):
-    filename = get_user_file(username)
-    tasks = []
-    if not os.path.exists(filename):
-        return tasks
-    with open(filename, "r", encoding="utf-8") as f:
-        for line in f:
-            if "|" in line:
-                status, title = line.strip().split("|", 1)
-                completed = (status == "1")
-                tasks.append(Task(title, completed))
+def load_tasks(user_id: str) -> List[Task]:
+    """Load tasks for a specific user ID."""
+    data = load_all_tasks()
+    user_tasks = data.get(user_id, [])
+    tasks: List[Task] = [Task(t["task"], t["done"]) for t in user_tasks]
     return tasks
+
+
+def save_tasks(tasks: List[Task], user_id: str) -> None:
+    """Save tasks for a specific user ID."""
+    data = load_all_tasks()
+    # Convert Task objects into dicts
+    data[user_id] = [{"task": t.title, "done": t.completed} for t in tasks]
+    save_all_tasks(data)
