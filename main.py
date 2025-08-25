@@ -31,24 +31,24 @@ def main():
 
     while True:
         show_menu()
-        c = get_choice()
-        if c == 1:
+        user_choice = get_choice()
+        if user_choice == 1:
             title = input("Enter task title: ")
             task_manager.add_task(title)
             print("Task added.")
-        elif c == 2:
+        elif user_choice == 2:
             task_manager.list_tasks()
-        elif c == 3:
+        elif user_choice == 3:
             task_manager.list_tasks()
             index = get_task_index()
             task_manager.complete_task(index)
             print("Task marked complete.")
-        elif c == 4:
+        elif user_choice == 4:
             task_manager.list_tasks()
             index = get_task_index()
             task_manager.delete_task(index)
             print("Task deleted.")
-        elif c == 5:
+        elif user_choice == 5:
             print("Exiting...")
             break
         else:
