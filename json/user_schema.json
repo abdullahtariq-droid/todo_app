@@ -1,0 +1,28 @@
+{
+    "schema": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string"
+            },
+            "username": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "id",
+            "username",
+            "password"
+        ]
+    },
+    "data": [
+        {
+            "id": "ufd0b66",
+            "username": "ahmedf",
+            "password": "123"
+        }
+    ]
+}
